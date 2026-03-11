@@ -1,25 +1,39 @@
 import streamlit as st
 import pandas as pd
 
-# Sidebar Navigation
-st.sidebar.title("Pet Grooming Services")
-page = st.sidebar.radio("Navigate", ["Home", "Book Grooming", "Service Dashboard", "About"])
+st.set_page_config(page_title="Pet Grooming Services", page_icon="🐶")
 
-# HOME PAGE
+st.sidebar.title("🐾 Grooming Services")
+page = st.sidebar.radio(
+    "Navigation",
+    ["Home", "Book Grooming", "Service Dashboard", "About"]
+)
+
 if page == "Home":
-    st.title("Pet Grooming Service App")
-    st.header("Welcome to our Grooming Service")
-    st.write("This app allows pet owners to book grooming services for their pets.")
-    st.image("https://cdn-icons-png.flaticon.com/512/616/616408.png", width=200)
 
-    if st.button("Book a Grooming Service"):
-        st.success("Go to the Book Grooming page from the sidebar.")
+    col1, col2, col3 = st.columns([1,2,1])
 
-# BOOK GROOMING PAGE
+    with col2:
+        st.title("🐶 Pet Grooming Services")
+        st.write("Welcome to our grooming service app!")
+        st.write("Pet owners can book grooming appointments easily.")
+
+        st.image(
+            "https://cdn-icons-png.flaticon.com/512/616/616408.png",
+            width=200
+        )
+
+        st.divider()
+
+        if st.button("Book Grooming Appointment"):
+            st.success("Use the sidebar and go to the **Book Grooming** page.")
+
 elif page == "Book Grooming":
-    st.title("Book a Grooming Appointment")
+
+    st.title("✂️ Book a Grooming Appointment")
 
     name = st.text_input("Owner Name")
+
     pet_name = st.text_input("Pet Name")
 
     pet_type = st.selectbox(
@@ -47,12 +61,14 @@ elif page == "Book Grooming":
 
     notes = st.text_area("Special Instructions")
 
+    st.divider()
+
     if st.button("Submit Appointment"):
         st.success("Your grooming appointment has been submitted!")
 
-# DASHBOARD PAGE
 elif page == "Service Dashboard":
-    st.title("Grooming Service Dashboard")
+
+    st.title("📊 Grooming Service Dashboard")
 
     data = {
         "Service": ["Bath", "Haircut", "Nail Trim", "Ear Cleaning"],
@@ -61,23 +77,32 @@ elif page == "Service Dashboard":
 
     df = pd.DataFrame(data)
 
+    st.subheader("Grooming Service Table")
     st.table(df)
+
+    st.subheader("Service Popularity")
     st.bar_chart(df.set_index("Service"))
 
-# ABOUT PAGE
 elif page == "About":
+
     st.title("About This App")
 
     st.write("""
-    This app is a Pet Grooming Service booking system.
+This application is a **Pet Grooming Service Booking App**.
 
-    It allows pet owners to book grooming services for their pets easily.
+It helps pet owners book grooming services for their pets.
 
-    Target users are pet owners who want a simple way to schedule grooming appointments.
+Pet owners who want a simple and easy way to schedule grooming appointments.
 
-    The app collects inputs such as owner name, pet name, pet type,
-    grooming services, appointment date, and special instructions.
+The app collects:
+- Owner name
+- Pet name
+- Pet type
+- Grooming services
+- Appointment date and time
+- Special instructions
 
-    The output shows confirmation messages and a simple dashboard
-    that displays grooming service bookings.
-    """)
+The app shows:
+- Appointment confirmation
+- A dashboard that displays grooming service bookings.
+""")
