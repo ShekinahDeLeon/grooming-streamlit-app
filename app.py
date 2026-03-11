@@ -1,34 +1,71 @@
 import streamlit as st
 import pandas as pd
+import time
 
-st.set_page_config(page_title="Pet Grooming Services", page_icon="🐶")
+st.set_page_config(page_title="Pet Grooming Services", page_icon="🐾")
+
+if "page" not in st.session_state:
+    st.session_state.page = "Home"
 
 st.sidebar.title("🐾 Grooming Services")
-page = st.sidebar.radio(
+
+nav = st.sidebar.radio(
     "Navigation",
-    ["Home", "Book Grooming", "Service Dashboard", "About"]
+    ["Home", "Book Grooming", "Service Dashboard", "About"],
+    index=["Home","Book Grooming","Service Dashboard","About"].index(st.session_state.page)
 )
 
-if page == "Home":
+st.session_state.page = nav
 
-    col1, col2, col3 = st.columns([1,2,1])
 
-    with col2:
-        st.title("🐶 Pet Grooming Services")
-        st.write("Welcome to our grooming service app!")
-        st.write("Pet owners can book grooming appointments easily.")
+if st.session_state.page == "Home":
 
-        st.image(
-            "https://cdn-icons-png.flaticon.com/512/616/616408.png",
-            width=200
-        )
+    left, center, right = st.columns([1,2,1])
+
+    with center:
+        st.title("🐾 Pet Grooming Services")
+
+        st.write(":center[Welcome to our grooming service app!]")
+        st.write(":center[Pet owners can easily book grooming services for their pets.]")
+        st.write(":center[We offer grooming for different animals.]")
 
         st.divider()
 
-        if st.button("Book Grooming Appointment"):
-            st.success("Use the sidebar and go to the **Book Grooming** page.")
+      
+        col1, col2, col3 = st.columns(3)
 
-elif page == "Book Grooming":
+        with col1:
+            st.image(
+                "https://cdn-icons-png.flaticon.com/512/616/616408.png",
+                caption="Dog"
+            )
+
+        with col2:
+            st.image(
+                "https://cdn-icons-png.flaticon.com/512/616/616430.png",
+                caption="Cat"
+            )
+
+        with col3:
+            st.image(
+                "https://cdn-icons-png.flaticon.com/512/1998/1998610.png",
+                caption="Rabbit"
+            )
+
+        st.divider()
+
+        with st.expander("See Available Grooming Services"):
+            st.write("🛁 Bath - Cleaning and shampoo")
+            st.write("✂️ Haircut - Professional trimming")
+            st.write("🐾 Nail Trim - Safe nail cutting")
+            st.write("👂 Ear Cleaning - Gentle ear care")
+
+        if st.button("Book Grooming Appointment"):
+            st.session_state.page = "Book Grooming"
+            st.rerun()
+
+
+elif st.session_state.page == "Book Grooming":
 
     st.title("✂️ Book a Grooming Appointment")
 
@@ -38,7 +75,7 @@ elif page == "Book Grooming":
 
     pet_type = st.selectbox(
         "Pet Type",
-        ["Dog", "Cat", "Rabbit", "Other"]
+        ["Dog", "Cat", "Rabbit", "Hamster", "Other"]
     )
 
     services = st.multiselect(
@@ -66,7 +103,17 @@ elif page == "Book Grooming":
     if st.button("Submit Appointment"):
         st.success("Your grooming appointment has been submitted!")
 
-elif page == "Service Dashboard":
+        st.write("Processing appointment...")
+        progress = st.progress(0)
+
+        for i in range(100):
+            time.sleep(0.01)
+            progress.progress(i+1)
+
+        st.success("Appointment successfully processed!")
+
+
+elif st.session_state.page == "Service Dashboard":
 
     st.title("📊 Grooming Service Dashboard")
 
@@ -77,32 +124,39 @@ elif page == "Service Dashboard":
 
     df = pd.DataFrame(data)
 
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.metric("Total Services", "4")
+
+    with col2:
+        st.metric("Total Bookings Today", "26")
+
     st.subheader("Grooming Service Table")
     st.table(df)
 
     st.subheader("Service Popularity")
     st.bar_chart(df.set_index("Service"))
 
-elif page == "About":
+
+elif st.session_state.page == "About":
 
     st.title("About This App")
 
     st.write("""
-This application is a **Pet Grooming Service Booking App**.
+:center[This application is a **Pet Grooming Service Booking App**.]
 
-It helps pet owners book grooming services for their pets.
+:center[The app helps pet owners easily schedule grooming services.]
 
-Pet owners who want a simple and easy way to schedule grooming appointments.
+Pet owners who want a simple way to book grooming appointments.
 
-The app collects:
-- Owner name
-- Pet name
-- Pet type
-- Grooming services
-- Appointment date and time
-- Special instructions
+- Owner name  
+- Pet name  
+- Pet type  
+- Grooming services  
+- Appointment date and time  
+- Special instructions  
 
-The app shows:
-- Appointment confirmation
-- A dashboard that displays grooming service bookings.
+- Appointment confirmation  
+- Grooming service dashboard  
 """)
