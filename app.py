@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import time
 
-st.set_page_config(page_title="Pet Grooming Services", page_icon="🐾")
+st.set_page_config(page_title="The Grooming Pawlor")
 
 if "page" not in st.session_state:
     st.session_state.page = "Home"
@@ -32,7 +32,7 @@ if st.session_state.page == "Home":
         st.divider()
 
       
-        col1, col2, col3 = st.columns(3)
+        col1, col2,  = st.columns(2)
 
         with col1:
             st.image(
@@ -44,12 +44,6 @@ if st.session_state.page == "Home":
             st.image(
                 "https://cdn-icons-png.flaticon.com/512/616/616430.png",
                 caption="Cat"
-            )
-
-        with col3:
-            st.image(
-                "https://cdn-icons-png.flaticon.com/512/1998/1998610.png",
-                caption="Rabbit"
             )
 
         st.divider()
@@ -160,3 +154,4 @@ Pet owners who want a simple way to book grooming appointments.
 - Appointment confirmation  
 - Grooming service dashboard  
 """)
+
