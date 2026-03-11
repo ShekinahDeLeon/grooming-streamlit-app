@@ -23,11 +23,11 @@ if st.session_state.page == "Home":
     left, center, right = st.columns([1,2,1])
 
     with center:
-        st.title("🐾 Pet Grooming Services")
+        st.title("The Grooming Pawlor")
 
-        st.write(":center[Welcome to our grooming service app!]")
-        st.write(":center[Pet owners can easily book grooming services for their pets.]")
-        st.write(":center[We offer grooming for different animals.]")
+        st.write("Welcome to our Grooming Pawlor app!")
+        st.write("Where pet owners can easily book grooming services for their pets.")
+        st.write("We offer grooming for different animals.")
 
         st.divider()
 
@@ -49,10 +49,10 @@ if st.session_state.page == "Home":
         st.divider()
 
         with st.expander("See Available Grooming Services"):
-            st.write("🛁 Bath - Cleaning and shampoo")
-            st.write("✂️ Haircut - Professional trimming")
-            st.write("🐾 Nail Trim - Safe nail cutting")
-            st.write("👂 Ear Cleaning - Gentle ear care")
+            st.write("🛁 Bath - Cleaning and Shampoo")
+            st.write("✂️ Haircut - Professional Trimming")
+            st.write("🐾 Nail Trim - Safe Nail Cutting")
+            st.write("👂 Ear Cleaning - Gentle Ear Care")
 
         if st.button("Book Grooming Appointment"):
             st.session_state.page = "Book Grooming"
@@ -61,7 +61,7 @@ if st.session_state.page == "Home":
 
 elif st.session_state.page == "Book Grooming":
 
-    st.title("✂️ Book a Grooming Appointment")
+    st.title("Book a Grooming Appointment")
 
     name = st.text_input("Owner Name")
 
@@ -109,7 +109,7 @@ elif st.session_state.page == "Book Grooming":
 
 elif st.session_state.page == "Service Dashboard":
 
-    st.title("📊 Grooming Service Dashboard")
+    st.title("Grooming Service Dashboard")
 
     data = {
         "Service": ["Bath", "Haircut", "Nail Trim", "Ear Cleaning"],
@@ -138,20 +138,13 @@ elif st.session_state.page == "About":
     st.title("About This App")
 
     st.write("""
-:center[This application is a **Pet Grooming Service Booking App**.]
+    This app is a Pet Grooming Service booking system.
 
-:center[The app helps pet owners easily schedule grooming services.]
+    It allows pet owners to book grooming services for their pets easily.
 
-Pet owners who want a simple way to book grooming appointments.
+    Target users are pet owners who want a simple way to schedule grooming appointments.
 
-- Owner name  
-- Pet name  
-- Pet type  
-- Grooming services  
-- Appointment date and time  
-- Special instructions  
+    The app collects inputs such as owner name, pet name, pet type, grooming services, appointment date, and special instructions.
 
-- Appointment confirmation  
-- Grooming service dashboard  
-""")
-
+    The output shows confirmation messages and a simple dashboard that displays grooming service bookings.
+    """)
